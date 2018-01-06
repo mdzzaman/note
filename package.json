@@ -13,6 +13,7 @@
     "start": "ng serve",
     "hmr": "ng serve --hmr -e=hmr",
     "build": "ng build --prod",
+    "ghp":"ng build --prod --output-path docs --base-href note",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
