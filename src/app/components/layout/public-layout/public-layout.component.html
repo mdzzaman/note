@@ -1,5 +1,18 @@
-<div class="full-width background-white">
-  <div fxFlex class="three" fxLayoutAlign="center center">
-    <router-outlet></router-outlet>
+<div fxLayout="column">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Note</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon">favorite</mat-icon>
+      <mat-icon class="example-icon">delete</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div fxLayout="row">
+    <div fxFlex="20">
+
+    </div>
+    <div fxFlex="80" fxLayoutAlign="center center">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
