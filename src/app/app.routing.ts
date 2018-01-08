@@ -12,6 +12,10 @@ export const AppRoutes: Routes = [
             }]
     },
     {
+        path: '404',
+        component: PublicLayoutComponent
+    },
+    {
         path: '**',
         redirectTo: '404'
     }];

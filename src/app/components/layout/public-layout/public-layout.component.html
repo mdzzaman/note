@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" class="full-height">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>Note</span>
@@ -7,11 +7,12 @@
       <mat-icon class="example-icon">delete</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
-  <div fxLayout="row">
-    <div fxFlex="20">
+  <div fxLayout="row" class="full-height">
+    <div fxFlex="20" class="full-height overflow-auto">
 
+      <app-side-nav></app-side-nav>
     </div>
-    <div fxFlex="80" fxLayoutAlign="center center">
+    <div fxFlex="80" fxLayoutAlign="center center" class="full-height overflow-auto">
       <router-outlet></router-outlet>
     </div>
   </div>
