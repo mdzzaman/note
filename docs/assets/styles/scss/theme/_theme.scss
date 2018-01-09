@@ -1,0 +1,7 @@
+//@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// theme variables
+@import "theme.variables";
+
+// Default Theme
+@include angular-material-theme($theme);
