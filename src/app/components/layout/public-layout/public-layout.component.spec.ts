@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../../../shared/shared.module';
 import { AppRoutes } from '../../../app.routing';
 import { PublicLayoutComponent } from './public-layout.component';
+import { NavigationModule } from '../../navigation/navigation.module';
 
 describe('PublicLayoutComponent', () => {
   let component: PublicLayoutComponent;
@@ -12,6 +14,8 @@ describe('PublicLayoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PublicLayoutComponent ],
       imports: [
+        SharedModule,
+        NavigationModule,
         RouterModule.forRoot(AppRoutes),
       ],
       providers: [
