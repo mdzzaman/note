@@ -15,9 +15,22 @@ export class SideNavComponent implements OnInit {
   }
 
   navigationData() {
-    this.navigation.push({ name: 'Note', url: '/' });
-    this.navigation.push({ name: 'Done', url: '/done' });
-    this.navigation.push({ name: 'Stare', url: '/start' });
+    this.navigation.push({ name: 'Note', icon: 'note', url: '/' });
+    this.navigation.push({ name: 'Done', icon: 'done', url: '/done' });
+    this.navigation.push({ name: 'Star', icon: 'star', url: '/star' });
   }
 
+  addCategory(){}
+
+  selectCategory(){
+
+  }
+
+  categoryEdit(){
+
+  }
+
+  caregoryDelete(){
+
+  }
 }
