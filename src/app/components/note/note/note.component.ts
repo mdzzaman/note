@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-note',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./note.component.sass']
 })
 export class NoteComponent implements OnInit {
-
-  constructor() { }
+  noteForm: FormGroup;
+  constructor(private fb: FormBuilder) { 
+    this.createForm();
+  }
 
   ngOnInit() {
+  }
+
+  createForm() {
+    this.noteForm = this.fb.group({
+      //title: ['', Validators.required],
+      title: [''],
+      description: ['']
+    });
   }
 
 }

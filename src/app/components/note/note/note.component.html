@@ -1,3 +1,23 @@
-<p>
-  note works!
-</p>
+<div>
+  <mat-card class="padding-v-0 padding-h-16 width-500">
+    <form class="example-container" [formGroup]="noteForm" novalidate class="padding-0">
+      <div fxLayout="row">
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+        <!-- <div class="padding-top-25 padding-left-10">
+          <mat-icon>mode_edit</mat-icon>
+        </div> -->
+      </div>
+
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <!-- <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || !debitParent || isProcessing" *ngIf="!isEdit">Save</button>
+      <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || !debitParent || isProcessing"
+        *ngIf="isEdit">Update</button>
+      <button mat-raised-button color="primary" (click)="reset()" [disabled]="!noteForm.valid || !debitParent || isProcessing">reset</button> -->
+    </form>
+  </mat-card>
+</div>
