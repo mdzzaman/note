@@ -2,7 +2,16 @@
   "author": "Kamruzzaman",
   "name": "note",
   "version": "0.0.1",
-  "description": "Angular note",
+  "description": "Angular 5 material template with a note application, with unite testing, you can use it as a bootstrap template for application",
+  "keywords": [
+    "angular",
+    "angular 5",
+    "material",
+    "material 2",
+    "bootstrap",
+    "template",
+    "unit testing"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
