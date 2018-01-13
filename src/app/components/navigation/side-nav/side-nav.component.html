@@ -10,13 +10,13 @@
 </mat-nav-list>
 <hr class="opacity-20 margin-0">
 <mat-nav-list class="padding-v-0">
-  <mat-list-item *ngFor="let nav of navigation" (click)="selectCategory(nav)">
-    <button mat-icon-button (click)="categoryEdit(nav)">
+  <mat-list-item *ngFor="let category of categories" (click)="selectCategory(category)">
+    <button mat-icon-button (click)="categoryEdit(category)">
       <mat-icon>mode_edit</mat-icon>
     </button>
-    <button mat-icon-button (click)="caregoryDelete(nav)">
+    <button mat-icon-button (click)="caregoryDelete(category)">
       <mat-icon>delete</mat-icon>
     </button>
-    <a matLine href="{{nav.url}}">{{nav.name}}</a>
+    <a matLine>{{category.name}}</a>
   </mat-list-item>
 </mat-nav-list>

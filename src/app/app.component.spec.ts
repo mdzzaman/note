@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { debug } from 'util';
 import { APP_BASE_HREF } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { LayoutModule } from './components/layout/layout.module';
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
       imports: [
         LayoutModule,
         RouterModule.forRoot(AppRoutes),
+        BrowserAnimationsModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' }
