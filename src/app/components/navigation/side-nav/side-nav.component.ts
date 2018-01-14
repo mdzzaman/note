@@ -7,7 +7,7 @@ import { ConfirmationComponent } from '../../dialog/confirmation/confirmation.co
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.sass']
+  styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
   navigation: Array<any> = [];

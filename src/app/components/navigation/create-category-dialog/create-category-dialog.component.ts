@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-create-category-dialog',
   templateUrl: './create-category-dialog.component.html',
-  styleUrls: ['./create-category-dialog.component.sass']
+  styleUrls: ['./create-category-dialog.component.scss']
 })
 export class CreateCategoryDialogComponent implements OnInit {
 
