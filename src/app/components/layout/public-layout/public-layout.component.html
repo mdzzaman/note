@@ -1,15 +1,18 @@
 <div fxLayout="column" class="full-height">
-  <mat-toolbar color="primary" class="mat-elevation-z6" >
+  <mat-toolbar color="primary" class="mat-elevation-z6">
     <mat-toolbar-row>
       <span>Note</span>
-      <span class="example-spacer"></span>
+      <span>(You can store your information for later use)</span>
+      <form fxFlex="60" class="search-box-form padding-h-10 padding-v-5 margin-h-15">
+          <input matInput fxFlex class="search-box">
+      </form>
+
       <mat-icon class="example-icon">favorite</mat-icon>
       <mat-icon class="example-icon">delete</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
   <div fxLayout="row" class="full-height">
     <div fxFlex="20" class="full-height overflow-auto mat-elevation-z3">
-
       <app-side-nav></app-side-nav>
     </div>
     <div fxFlex="80" fxLayoutAlign="center start" class="full-height overflow-auto">

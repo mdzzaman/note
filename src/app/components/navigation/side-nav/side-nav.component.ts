@@ -17,6 +17,10 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {
     this.navigationData();
+    // for test
+    this.categories.push({ name: "Cat 1" });
+    this.categories.push({ name: "Cat 2" });
+    this.categories.push({ name: "Cat 3" });
   }
 
   navigationData() {

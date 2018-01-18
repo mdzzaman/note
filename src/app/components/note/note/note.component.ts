@@ -10,6 +10,7 @@ export class NoteComponent implements OnInit {
   noteForm: FormGroup;
   selectedCategory: any;
   isFocuse: boolean = false;
+  isEdit: boolean = false;
   categories: Array<any> = [
     { name: 'Cat 1', id: 1 },
     { name: 'Cat 2', id: 2 },
@@ -43,6 +44,11 @@ export class NoteComponent implements OnInit {
 
   blur() {
     this.isFocuse = this.noteForm.get('title').value || this.noteForm.get('description').value ? true : false;
+  }
+
+  cancle() {
+    this.noteForm.reset();
+    this.isFocuse = false;
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="margin-top-50">
   <mat-card class="padding-v-0 padding-h-16 width-500" [ngClass]="{ 'padding-top-16' : isFocuse }">
-    <form class="example-container" [formGroup]="noteForm" novalidate class="padding-0">
+    <form [formGroup]="noteForm" novalidate class="padding-0">
       <div fxLayout="row">
         <mat-form-field fxFlex class="input-underline-opacity-20">
           <input matInput placeholder="Title" formControlName="title" (focus)="focus()" (blur)="blur()">
@@ -27,7 +27,8 @@
           </mat-form-field>
         </div>
         <div *ngIf="isFocuse">
-          <button mat-raised-button color="primary" (click)="save()">Save</button>
+          <button mat-raised-button color="primary" (click)="cancle()" [disabled]="isProcessing">Cancel</button>
+          <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || isProcessing" *ngIf="!isEdit">Save</button>
         </div>
         <!-- <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || !debitParent || isProcessing" *ngIf="!isEdit">Save</button>
         <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || !debitParent || isProcessing"
