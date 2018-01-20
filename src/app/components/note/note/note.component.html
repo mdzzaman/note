@@ -20,7 +20,7 @@
         <div fxLayout="row" fxLayoutAlign="end center" class="padding-bottom-15" *ngIf="isFocuse">
           <div class="padding-right-15">
             <mat-form-field>
-              <mat-select placeholder="Category" formControlName="category">
+              <mat-select placeholder="Category" formControlName="category_id">
                 <mat-option *ngFor="let category of categories" [value]="category.id">
                   {{category.name}}
                 </mat-option>
@@ -44,9 +44,28 @@
 
 <div class="margin-top-10">
   <div fxLayout="row" fxLayoutAlign="center start" fxLayoutWrap>
-    <mat-card *ngFor="let note of noteList" class="width-200 margin-10 cur-pointer">
-      <mat-card-title>{{note.title}}</mat-card-title>
-      <mat-card-content>{{note.description}}</mat-card-content>
+    <mat-card *ngFor="let note of noteList" class="cur-pointer width-200 margin-10" (click)="details(note)">
+      <mat-card-title>
+        {{note.title}}
+      </mat-card-title>
+      <mat-card-content>
+        <div class="text-ellipsis">
+          {{note.description}}
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-icon-button>
+            <mat-icon class="example-icon" (click)="star(note); $event.stopPropagation(); false;">star</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon class="example-icon" (click)="done(note); $event.stopPropagation(); false;">done</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon class="example-icon" (click)="edit(note); $event.stopPropagation(); false;">mode_edit</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

@@ -1,16 +1,16 @@
 <mat-nav-list class="padding-v-0">
   <mat-list-item *ngFor="let nav of navigation" (click)="selectCategory(nav)">
-    <mat-icon mat-list-icon class="padding-bottom-10">{{nav.icon}}</mat-icon>
+    <mat-icon mat-list-icon class="padding-bottom-10 margin-left-5">{{nav.icon}}</mat-icon>
     <h4 mat-line>{{nav.name}}</h4>
   </mat-list-item>
   <mat-list-item (click)="addCategory()">
-    <mat-icon mat-list-icon class="padding-bottom-10">add</mat-icon>
+    <mat-icon mat-list-icon class="padding-bottom-10 margin-left-5">add</mat-icon>
     <h4 mat-line>Add Category</h4>
   </mat-list-item>
 </mat-nav-list>
 <hr class="opacity-20 margin-0">
 <mat-nav-list class="padding-v-0">
-  <mat-list-item *ngFor="let category of categories" (click)="selectCategory(category)">
+  <mat-list-item *ngFor="let category of categories" (click)="selectCategory(category)" class="padding-left-10">
     <button mat-icon-button (click)="categoryEdit(category)">
       <mat-icon>mode_edit</mat-icon>
     </button>
