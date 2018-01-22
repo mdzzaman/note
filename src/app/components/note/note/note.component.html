@@ -1,71 +1,73 @@
-<div fxLayout="row" fxLayoutAlign="center start">
-  <div class="margin-top-50">
-    <mat-card class="padding-v-0 padding-h-16 width-500" [ngClass]="{ 'padding-top-16' : isFocuse }">
-      <form [formGroup]="noteForm" novalidate class="padding-0">
-        <div fxLayout="row">
-          <mat-form-field fxFlex class="input-underline-opacity-20">
-            <input matInput placeholder="Title" formControlName="title" (focus)="focus()">
-          </mat-form-field>
-          <div class="padding-top-25 padding-left-10" *ngIf="!isFocuse">
-            <mat-icon>mode_edit</mat-icon>
+<div fxLayout="column" fxLayoutAlign="start start">
+  <div fxLayout="row" fxLayoutAlign="center start" class="full-width">
+    <div class="margin-top-50">
+      <mat-card class="padding-v-0 padding-h-16" ngClass.gt-sm="width-500" ngClass.gt-xs="width-400">
+        <form [formGroup]="noteForm" novalidate class="padding-0" [ngClass]="{ 'padding-top-16' : isFocuse }">
+          <div fxLayout="row">
+            <mat-form-field fxFlex class="input-underline-opacity-20">
+              <input matInput placeholder="Title" formControlName="title" (focus)="focus()">
+            </mat-form-field>
+            <div class="padding-top-25 padding-left-10" *ngIf="!isFocuse">
+              <mat-icon>mode_edit</mat-icon>
+            </div>
           </div>
-        </div>
 
-        <div fxLayout="row" *ngIf="isFocuse">
-          <mat-form-field fxFlex class="input-underline-opacity-20">
-            <textarea matInput matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10" placeholder="Description" formControlName="description"></textarea>
-          </mat-form-field>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="end center" class="padding-bottom-15" *ngIf="isFocuse">
-          <div class="padding-right-15">
-            <mat-form-field>
-              <mat-select placeholder="Category" formControlName="category_id">
-                <mat-option *ngFor="let category of categories" [value]="category.id">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
+          <div fxLayout="row" *ngIf="isFocuse">
+            <mat-form-field fxFlex class="input-underline-opacity-20">
+              <textarea matInput matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10" placeholder="Description" formControlName="description"></textarea>
             </mat-form-field>
           </div>
-          <div *ngIf="isFocuse">
-            <button mat-raised-button color="primary" (click)="cancle()" [disabled]="isProcessing">Cancel</button>
-            <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || isProcessing" *ngIf="!isEdit">Save</button>
+
+          <div fxLayout="row" fxLayoutAlign="end center" class="padding-bottom-15" *ngIf="isFocuse">
+            <div class="padding-right-15">
+              <mat-form-field>
+                <mat-select placeholder="Category" formControlName="category_id">
+                  <mat-option *ngFor="let category of categories" [value]="category.id">
+                    {{category.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngIf="isFocuse">
+              <button mat-raised-button color="primary" (click)="cancle()" [disabled]="isProcessing">Cancel</button>
+              <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || isProcessing" *ngIf="!isEdit">Save</button>
+            </div>
+            <!-- <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || !debitParent || isProcessing" *ngIf="!isEdit">Save</button>
+                <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || !debitParent || isProcessing"
+                  *ngIf="isEdit">Update</button>
+                <button mat-raised-button color="primary" (click)="reset()" [disabled]="!noteForm.valid || !debitParent || isProcessing">reset</button> -->
           </div>
-          <!-- <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || !debitParent || isProcessing" *ngIf="!isEdit">Save</button>
-          <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || !debitParent || isProcessing"
-            *ngIf="isEdit">Update</button>
-          <button mat-raised-button color="primary" (click)="reset()" [disabled]="!noteForm.valid || !debitParent || isProcessing">reset</button> -->
-        </div>
 
-      </form>
-    </mat-card>
+        </form>
+      </mat-card>
+    </div>
   </div>
-</div>
 
-<div class="margin-top-10">
-  <div fxLayout="row" fxLayoutAlign="center start" fxLayoutWrap>
-    <mat-card *ngFor="let note of noteList" class="cur-pointer width-200 margin-10" (click)="details(note)">
-      <mat-card-title>
-        {{note.title}}
-      </mat-card-title>
-      <mat-card-content>
-        <div class="text-ellipsis">
-          {{note.description}}
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <div fxLayout="row" fxLayoutAlign="end center">
-          <button mat-icon-button>
-            <mat-icon class="example-icon" (click)="star(note); $event.stopPropagation(); false;">star</mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon class="example-icon" (click)="done(note); $event.stopPropagation(); false;">done</mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon class="example-icon" (click)="edit(note); $event.stopPropagation(); false;">mode_edit</mat-icon>
-          </button>
-        </div>
-      </mat-card-actions>
-    </mat-card>
+  <div class="margin-top-10">
+    <div fxLayout="row" fxLayoutAlign="center start" fxLayoutWrap>
+      <mat-card *ngFor="let note of noteList" class="cur-pointer width-200 margin-10" (click)="details(note)">
+        <mat-card-title>
+          {{note.title}}
+        </mat-card-title>
+        <mat-card-content>
+          <div class="text-ellipsis">
+            {{note.description}}
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <button mat-icon-button>
+              <mat-icon class="example-icon" (click)="star(note); $event.stopPropagation(); false;">star</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="example-icon" (click)="done(note); $event.stopPropagation(); false;">done</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="example-icon" (click)="edit(note); $event.stopPropagation(); false;">mode_edit</mat-icon>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>
