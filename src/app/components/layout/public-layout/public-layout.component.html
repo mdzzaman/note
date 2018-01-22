@@ -1,7 +1,7 @@
 <div fxLayout="column" class="full-height">
   <mat-toolbar color="primary" class="mat-elevation-z6">
     <mat-toolbar-row>
-      <button class="margin-right-10" mat-icon-button>
+      <button class="margin-right-10" mat-icon-button (click)="sidenav.toggle()">
         <mat-icon class="example-icon">menu</mat-icon>
       </button>
       <span>Note</span>
@@ -13,11 +13,21 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <div fxLayout="row" class="full-height">
-    <div fxFlex="20" class="full-height overflow-auto mat-elevation-z6 navigarion-color">
-      <app-side-nav></app-side-nav>
-    </div>
-    <div fxFlex="80" class="full-height overflow-auto">
-      <router-outlet></router-outlet>
-    </div>
+
+    <mat-sidenav-container class="full-width">
+      <mat-sidenav #sidenav [mode]="sideNavigationNode" class="mat-elevation-z6 navigarion-color">
+        <app-side-nav></app-side-nav>
+        <!-- [mode]="mode" -->
+        <!-- <div fxFlex="20" class="full-height overflow-auto mat-elevation-z6 navigarion-color">
+        </div> -->
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+        <!-- <div fxFlex="80" class="full-height overflow-auto">
+        </div> -->
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+
   </div>
 </div>
