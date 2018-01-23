@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start start">
   <div fxLayout="row" fxLayoutAlign="center start" class="full-width">
     <div class="margin-top-50">
-      <mat-card class="padding-v-0 padding-h-16" ngClass.gt-sm="width-500" ngClass.gt-xs="width-400">
+      <mat-card class="padding-v-0 padding-h-16" ngClass.gt-sm="width-500" ngClass.gt-xs="width-400" ngClass.xs="flex">
         <form [formGroup]="noteForm" novalidate class="padding-0" [ngClass]="{ 'padding-top-16' : isFocuse }">
           <div fxLayout="row">
             <mat-form-field fxFlex class="input-underline-opacity-20">
@@ -18,7 +18,7 @@
             </mat-form-field>
           </div>
 
-          <div fxLayout="row" fxLayoutAlign="end center" class="padding-bottom-15" *ngIf="isFocuse">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" class="padding-bottom-15" *ngIf="isFocuse">
             <div class="padding-right-15">
               <mat-form-field>
                 <mat-select placeholder="Category" formControlName="category_id">
