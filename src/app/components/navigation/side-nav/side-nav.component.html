@@ -10,7 +10,7 @@
 </mat-nav-list>
 <hr class="opacity-20 margin-0">
 <mat-nav-list class="padding-v-0">
-  <mat-list-item *ngFor="let category of categories" (click)="selectCategory(category)" class="padding-left-10">
+  <mat-list-item *ngFor="let category of categories | async" (click)="selectCategory(category)" class="padding-left-10">
     <button mat-icon-button (click)="categoryEdit(category)">
       <mat-icon>mode_edit</mat-icon>
     </button>

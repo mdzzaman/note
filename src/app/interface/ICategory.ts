@@ -1,4 +1,5 @@
 export interface ICategory {
-    id: number;
-    naem: string;
+    id: string;
+    name: string;
+    doc_id?: string;
 }
