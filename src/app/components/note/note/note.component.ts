@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { NoteDetailsDialogComponent } from '../note-details-dialog/note-details-dialog.component';
 import { INote } from '../../../interface/INote';
+import { ICategory } from '../../../interface/ICategory';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-note',
@@ -11,53 +14,59 @@ import { INote } from '../../../interface/INote';
 })
 export class NoteComponent implements OnInit {
   noteForm: FormGroup;
+  isProcessing: boolean = false;
   selectedCategory: any;
   isFocuse: boolean = false;
   isEdit: boolean = false;
-  noteList: Array<INote> = [
-    {
-      id: 1,
-      category_id: 1,
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      title: "Note"
-    },
-    {
-      id: 2,
-      category_id: 1,
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      title: "Note"
-    },
-    {
-      id: 3,
-      category_id: 1,
-      description: "This is description of note",
-      title: "Note"
-    },
-    {
-      id: 4,
-      category_id: 1,
-      description: "This is description of note",
-      title: "Note"
-    },
-    {
-      id: 5,
-      category_id: 1,
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      title: "Note"
-    }
-  ];
-  categories: Array<any> = [
-    { name: 'Cat 1', id: 1 },
-    { name: 'Cat 2', id: 2 },
-    { name: 'Cat 3', id: 3 }
-  ];
+  //categories: Observable<ICategory[]>;
+  categories: ICategory[];
+  noteList: Observable<INote[]>;
+  editNoteModel: INote;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  private categoryCollection: AngularFirestoreCollection<ICategory>;
+  private categoryDoc: AngularFirestoreDocument<ICategory>;
+
+  private noteCollection: AngularFirestoreCollection<INote>;
+  private noteDoc: AngularFirestoreDocument<INote>;
+
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private db: AngularFirestore) {
+    this.categoryCollection = db.collection<ICategory>('category');
+    this.noteCollection = db.collection<INote>('note');
     this.createForm();
+    this.getCategory();
+    this.getNote();
   }
 
   ngOnInit() {
     this.selectedCategory = 1;
+  }
+
+  getCategory() {
+    this.categoryCollection.valueChanges().subscribe(response => {
+      this.categories = response;
+      this.selectedCategory = response.length > 0 ? response[0].id : '';
+      this.noteForm.patchValue({
+        category_id: this.selectedCategory
+      });
+    })
+    //this.categories = this.categoryCollection.valueChanges();
+    // this.categories = this.categoryCollection.snapshotChanges().map(actions => {
+    //   return actions.map(a => {
+    //     let data = a.payload.doc.data() as ICategory;
+    //     let doc_id = a.payload.doc.id;
+    //     return { doc_id, ...data };
+    //   });
+    // });
+  }
+
+  getNote() {
+    this.noteList = this.noteCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        let data = a.payload.doc.data() as INote;
+        let doc_id = a.payload.doc.id;
+        return { doc_id, ...data };
+      });
+    });
   }
 
   createForm() {
@@ -68,11 +77,6 @@ export class NoteComponent implements OnInit {
       description: [''],
       category_id: ['']
     });
-
-    this.noteForm.patchValue({
-      category_id: 1
-    });
-
   }
 
   focus() {
@@ -84,8 +88,9 @@ export class NoteComponent implements OnInit {
   }
 
   save() {
-    let newNote = this.noteForm.value as INote;
-    this.noteList.push(newNote);
+    let newNote: INote = this.noteForm.value as INote;
+    this.noteCollection.add(newNote);
+    this.getNote();
     this.cancle();
   }
 
@@ -102,21 +107,43 @@ export class NoteComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.categories.push({ name: result });
+        //this.categories.push({ name: result });
       }
     });
   }
 
   star(data: INote) {
-
+    this.noteCollection.doc(data.doc_id).update(data).then(() => {
+      console.log('updated');
+    });
   }
 
   done(data: INote) {
-
+    this.noteCollection.doc(data.doc_id).update(data).then(() => {
+      console.log('updated');
+    });
   }
 
   edit(data: INote) {
-    this.noteForm.setValue(data);
+    this.isEdit = true;
+    this.editNoteModel = data;
+    this.noteForm.setValue({
+      id: data.id,
+      title: data.title,
+      category_id: data.category_id,
+      description: data.description
+    });
     this.isFocuse = true;
+  }
+
+  update() {
+    this.isProcessing = true;
+    let updateNote: INote = this.noteForm.value as INote;
+    this.noteCollection.doc(this.editNoteModel.doc_id).update(updateNote).then(() => {
+      this.isEdit = false;
+      this.cancle();
+      this.isProcessing = false;
+      console.log('updated');
+    })
   }
 }

@@ -31,6 +31,7 @@
             <div *ngIf="isFocuse">
               <button mat-raised-button color="primary" (click)="cancle()" [disabled]="isProcessing">Cancel</button>
               <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || isProcessing" *ngIf="!isEdit">Save</button>
+              <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || isProcessing" *ngIf="isEdit">Update</button>
             </div>
             <!-- <button mat-raised-button color="primary" (click)="save()" [disabled]="!noteForm.valid || !debitParent || isProcessing" *ngIf="!isEdit">Save</button>
                 <button mat-raised-button color="primary" (click)="update()" [disabled]="!noteForm.valid || !debitParent || isProcessing"
@@ -45,7 +46,7 @@
 
   <div class="margin-top-10">
     <div fxLayout="row" fxLayoutAlign="center start" fxLayoutWrap>
-      <mat-card *ngFor="let note of noteList" class="cur-pointer width-200 margin-10" (click)="details(note)">
+      <mat-card *ngFor="let note of noteList  | async" class="cur-pointer width-200 margin-10" (click)="details(note)">
         <mat-card-title>
           {{note.title}}
         </mat-card-title>
@@ -56,11 +57,13 @@
         </mat-card-content>
         <mat-card-actions>
           <div fxLayout="row" fxLayoutAlign="end center">
-            <button mat-icon-button>
-              <mat-icon class="example-icon" (click)="star(note); $event.stopPropagation(); false;">star</mat-icon>
+            <button mat-icon-button (click)="note.is_star = !note.is_star; star(note); $event.stopPropagation(); false;">
+              <mat-icon class="example-icon" *ngIf="note.is_star">star</mat-icon>
+              <mat-icon class="example-icon" *ngIf="!note.is_star">star_border</mat-icon>
             </button>
-            <button mat-icon-button>
-              <mat-icon class="example-icon" (click)="done(note); $event.stopPropagation(); false;">done</mat-icon>
+            <button mat-icon-button (click)="note.is_done = !note.is_done; done(note); $event.stopPropagation(); false;">
+              <mat-icon class="example-icon" *ngIf="note.is_done">done</mat-icon>
+              <mat-icon class="example-icon" *ngIf="!note.is_done">work</mat-icon>
             </button>
             <button mat-icon-button>
               <mat-icon class="example-icon" (click)="edit(note); $event.stopPropagation(); false;">mode_edit</mat-icon>
